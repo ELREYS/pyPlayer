@@ -78,18 +78,9 @@ class Window(QWidget):
 
     def open_urlfile(self):
         filename, _ = QFileDialog.getOpenFileName(self, "Open Video")
+        self.mediaPlayer.setMedia(QMediaContent(QUrl(filename)))
+        self.playBtn.setEnabled(True)
 
-        with open(filename, 'rb') as stream:
-            self._data = stream.read()
-            self._buffer.setData(self._data)
-            self._buffer.open(QtCore.QIODevice.ReadOnly)
-            self.player.setMedia(
-                QtMultimedia.QMediaContent(), self._buffer)
-            self.player.play()
-
-        if url != '':
-            self.mediaPlayer.setMedia(QMediaContent((QUrl(url))))
-            self.playBtn.setEnabled(True)
 
 
 
